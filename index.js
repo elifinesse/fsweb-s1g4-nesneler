@@ -14,9 +14,9 @@ const serpmeKahvalti = {isim: "Serpme Kahvaltı", fiyat: 16, kategori:"Kahvaltı
 	Örnek MenuElemaniOlustur('Cheeseburger', 8, 'Burgerler') şunu döndürmeli: {isim: 'Cheeseburger', fiyat: 8, kategori: 'Burgerler'}
 */
 
-
-function MenuElemaniOlustur(/*Kodlar buraya*/){
-	/*Kodlar buraya*/
+function MenuElemaniOlustur(name, price, category){
+	const menuelemani = {isim: name, fiyat: price, kategori: category};
+	return menuelemani;
 }
 
 
@@ -30,7 +30,6 @@ function MenuElemaniOlustur(/*Kodlar buraya*/){
 	
 	Örnek: MenuElemaniOlustur("Karışık Pizza",5,"Pizzalar") şunu döndürür: {isim:"Karışık Pizza",fiyat:5,kategori:"Pizzalar"}
 */
-
 
 
 /* Görev 2: 
@@ -52,6 +51,14 @@ const burger = {
 	kategori: "Öğle Yemeği", 
 
 }
+burger.indirim = function(kisi) {
+	if(kisi === "öğretmen" || kisi === "öğrenci") {
+		return burger.fiyat * 0.75
+	}
+	else {
+		return burger.fiyat * 0.90
+	}
+};
 
 
 
@@ -71,6 +78,7 @@ const degerlendirmeler = [
 	Yukarıdaki degerlendirmeler dizisini(array) kullanarak:
 	1. Sadece Ahmet'in geribildirimini konsolda görüntüleyin - fonksiyona gerek yok
 */
+console.log(degerlendirmeler[5].geribildirim);
 
 
 
@@ -79,7 +87,8 @@ const degerlendirmeler = [
 	1. Bu geribildirimi Reyna'nın değerlendirmesine ekleyin - "bu mekan bir harika dostum, yine de garsonun gülümsememesinden puan kırdım"
 	2. degerlendirmeler dizisini konsolda görüntüleyerek çalışmanızı kontrol edin
 */
-
+degerlendirmeler[7].geribildirim = "bu mekan bir harika dostum, yine de garsonun gülümsememesinden puan kırdım";
+console.log(degerlendirmeler);
 
 
 /*  Görev 5: 
@@ -94,9 +103,10 @@ const degerlendirmeler = [
 */
 
 
-function DegerledirmeEkle(/*Kodlar buraya */){
-	/*Kodlar buraya */
-	
+function DegerledirmeEkle(dizi, name, stars, feedback){
+	const review = {isim: name, puan: stars, geribildirim: feedback};
+	dizi.push(review)
+	return dizi;
 }
 
 
@@ -112,9 +122,9 @@ function DegerledirmeEkle(/*Kodlar buraya */){
 */
 
 
-function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
-	/*Kodlar buraya*/
-
+function AnahtardanDegerlendirmeAl(dizi, anahtar) {
+	const kisi = dizi[anahtar];
+	return `${kisi.isim} isimli kişi ${kisi.puan} puan verdi ve şunları yazdı: ${kisi.geribildirim}`
 }
 
 
@@ -132,8 +142,9 @@ function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
 */
 
 
-function SonDegerlendirmeyiAl(/*Kodlar buraya*/) {
-	/*Kodlar buraya*/
+function SonDegerlendirmeyiAl(dizi) {
+	const sonisim = dizi[dizi.length - 1];
+	return `${sonisim.isim} isimli kişi ${sonisim.puan} puan verdi ve şunları yazdı: ${sonisim.geribildirim}`
 } 
 
 
@@ -154,10 +165,18 @@ function SonDegerlendirmeyiAl(/*Kodlar buraya*/) {
 	]
 */
 
-function PuanaGoreDegerlendirmeAl(/* Kodlar buraya */) {
-    /* Kodlar buraya */
+function PuanaGoreDegerlendirmeAl(dizi, puan) {
+    const altlimit = Math.floor(puan);
+	const yenidizi = [];
+	for (let i = 0; i < dizi.length; i++) {
+		let degerlendirme = dizi[i];
+		if (degerlendirme.puan >= altlimit && degerlendirme.puan < altlimit + 1){
+			yenidizi.push(degerlendirme);
+		}
+	}
+	return yenidizi
 }
-
+console.log(PuanaGoreDegerlendirmeAl(degerlendirmeler, 4));
 
 /*  BONUS 2:    
 	UzunDegerlendirmeleriAl fonksiyonuna aşağıdakileri uygulayın:
